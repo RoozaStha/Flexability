@@ -286,10 +286,10 @@ export const doctors = [
         _id: 'doc15',
         name: 'Dr. Pratiksha Acharya',
         image: doc15,
-        speciality: 'Dermatologist',
+        speciality: 'Gastroenterologist',
         degree: 'MBBS',
         experience: '1 Year',
-        about: 'Dr. Acharya provides expert dermatological care, focused on treatment and prevention.',
+        about: 'Dr. Acharya provides expert Gastroenterologist care, focused on treatment and prevention.',
         fees: 30,
         address: {
             line1: 'Gongabu',

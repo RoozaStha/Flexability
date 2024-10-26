@@ -13,10 +13,12 @@ const Navbar = () => {
 
   return (
     <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400'>
-      <img className='w-44 cursor-pointer' src={assets.logo} alt="Logo" />
+      {/* Logo with a fixed size, slight enlargement, and rounded shape */}
+      <img onClick={() => navigate('/')} className='w-48 h-20 object-cover cursor-pointer' src={assets.logo} alt="Logo" />
+      
       <ul className='hidden md:flex items-start gap-5 font-medium'>
         <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
-          <li className='py-1'> Home </li>
+          <li className='py-1'> HOME </li>
         </NavLink>
 
         <NavLink to="/doctors" className={({ isActive }) => (isActive ? "active" : "")}>
