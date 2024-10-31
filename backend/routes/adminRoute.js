@@ -1,5 +1,5 @@
 import express from 'express';
-import { addDoctor, loginAdmin } from '../controllers/adminController.js';
+import { addDoctor, allDoctors, loginAdmin } from '../controllers/adminController.js';
 import upload from '../middlewares/multer.js';
 import authAdmin from '../middlewares/authAdmin.js';
 
@@ -10,5 +10,8 @@ adminRouter.post('/add-doctor', authAdmin, upload.single('image'), addDoctor);
 
 // Route for admin login
 adminRouter.post('/login', loginAdmin);
+
+// Route to get all doctors, requires admin authentication
+adminRouter.get('/all-doctors', authAdmin, allDoctors);
 
 export default adminRouter;

@@ -186,7 +186,7 @@ export const doctors = [
     },
     {
         _id: 'doc8',
-        name: 'Dr. Radha Tiwari',
+        name: 'Dr. Ram Tiwari',
         image: doc8,
         speciality: 'Gynecologist',
         degree: 'MBBS',
@@ -270,7 +270,7 @@ export const doctors = [
     },
     {
         _id: 'doc14',
-        name: 'Dr. Bimala Thapa',
+        name: 'Dr. Bimal Thapa',
         image: doc14,
         speciality: 'Gynecologist',
         degree: 'MBBS',
@@ -284,7 +284,7 @@ export const doctors = [
     },
     {
         _id: 'doc15',
-        name: 'Dr. Pratiksha Acharya',
+        name: 'Dr. Roja Shrestha',
         image: doc15,
         speciality: 'Gastroenterologist',
         degree: 'MBBS',
