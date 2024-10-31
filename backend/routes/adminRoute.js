@@ -12,6 +12,6 @@ adminRouter.post('/add-doctor', authAdmin, upload.single('image'), addDoctor);
 adminRouter.post('/login', loginAdmin);
 
 // Route to get all doctors, requires admin authentication
-adminRouter.get('/all-doctors', authAdmin, allDoctors);
+adminRouter.post('/all-doctors', authAdmin, allDoctors);
 
 export default adminRouter;
