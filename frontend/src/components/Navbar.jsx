@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { assets } from '../assets/assets';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
 
 const MenuItem = ({ to, onClick, children }) => (
   <NavLink to={to} onClick={onClick} className="px-4 py-2 rounded inline-block hover:text-primary">
@@ -10,9 +11,15 @@ const MenuItem = ({ to, onClick, children }) => (
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { token, setToken } = useContext(AppContext);
   const [showMenu, setShowMenu] = useState(false);
-  const [token, setToken] = useState(true); // Simulating user authentication
-  const [dropdownOpen, setDropdownOpen] = useState(false); // State to control dropdown visibility
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const logout = () => {
+    setToken(null); // Set token to null instead of 'false'
+    localStorage.removeItem('token'); // Remove token from localStorage
+    navigate('/login'); // Redirect to login page after logout
+  };
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -61,7 +68,7 @@ const Navbar = () => {
               >
                 <p onClick={() => navigate('/my-profile')} className="cursor-pointer py-1 hover:text-primary">My Profile</p>
                 <p onClick={() => navigate('/my-appointments')} className="cursor-pointer py-1 hover:text-primary">My Appointments</p>
-                <p onClick={() => setToken(false)} className="cursor-pointer py-1 hover:text-primary">Logout</p>
+                <p onClick={logout} className="cursor-pointer py-1 hover:text-primary">Logout</p>
               </div>
             )}
           </div>
@@ -102,6 +109,6 @@ const Navbar = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;
