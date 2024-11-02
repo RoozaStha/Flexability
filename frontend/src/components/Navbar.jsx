@@ -30,7 +30,7 @@ const Navbar = () => {
       {/* Logo with a fixed size, slight enlargement, and rounded shape */}
       <img 
         onClick={() => navigate('/')} 
-        className='w-48 h-20 object-cover cursor-pointer' 
+        className='w-30 h-20 object-cover cursor-pointer' 
         src={assets.logo} 
         alt="Logo" 
       />

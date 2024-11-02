@@ -81,43 +81,53 @@ const Appointment = () => {
             toast.warn("Login to book an appointment 🤬");
             return navigate('/login');
         }
-
+    
         const selectedSlot = docSlots[slotIndex]?.find(slot => slot.time === slotTime);
         if (!selectedSlot) {
             toast.warn("Please select a valid time slot before booking!");
             return;
         }
-
-        // Check if the selected slot is booked
+    
+        // Check if the selected slot is already marked as booked
         if (selectedSlot.booked) {
             toast.warn("This slot is already booked. Please select another slot.");
             return;
         }
-
+    
         const date = selectedSlot.datetime; // Use selected slot datetime directly
         const slotDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-
+    
         try {
             const { data } = await axios.post(
                 `${backendUrl}/api/user/book-appointments`,
                 { docId, slotDate, slotTime },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-
+    
             if (data.success) {
                 toast.success("Appointment booked successfully!");
                 getDoctorsData(); // Refresh doctors data to reflect booked slots
                 getAvailableSlots(); // Refresh available slots
                 navigate("/my-appointments");
             } else {
-                toast.error("Failed to book appointment");
+                toast.error(data.message || "Failed to book appointment");
             }
         } catch (error) {
-            console.error("Booking error:", error);
-            toast.error("Slot Already Booked. Please Select Another Slot");
+            // Check if the error response from the backend is related to a slot already booked
+            if (error.response && error.response.data && error.response.data.message) {
+                const errorMessage = error.response.data.message;
+                if (errorMessage.includes("Slot Already Booked")) {
+                    toast.error("This slot is already booked. Please select another slot.");
+                } else {
+                    toast.error(errorMessage); // Show other backend errors if they exist
+                }
+            } else {
+                console.error("Booking error:", error);
+                toast.error("Failed to book appointment. Please try again.");
+            }
         }
     };
-
+    
     useEffect(() => {
         getDocInfo();
     }, [doctors, docId]);
