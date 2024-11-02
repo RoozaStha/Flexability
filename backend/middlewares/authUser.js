@@ -19,7 +19,14 @@ const authUser = async (req, res, next) => {
         next();
     } catch (error) {
         console.error("Authentication error:", error);
-        res.json({ success: false, message: "Authorization failed. " + (error.message || "Invalid token") });
+
+        if (error.name === "TokenExpiredError") {
+            // Handle token expiration specifically
+            return res.status(401).json({ success: false, message: "Session expired. Please log in again." });
+        }
+
+        // Handle other errors
+        res.status(401).json({ success: false, message: "Authorization failed. " + (error.message || "Invalid token") });
     }
 };
 
