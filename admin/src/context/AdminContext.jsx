@@ -61,6 +61,7 @@ const getAllAppointments = async ()=>{
         
         if(data.success){
             setAppointments(data.appointments)
+            console.log(data.appointments)
 
         }else{
             toast.error(data.message)
@@ -72,6 +73,29 @@ const getAllAppointments = async ()=>{
 
     }
 }
+
+const cancelAppointment = async (appointmentId)=>{
+  try {
+    const { data } = await axios.post(
+        `${backendUrl}/api/admin/cancel-appointment`,
+        { appointmentId },
+        { 
+          headers: { 
+            Authorization: `Bearer ${aToken}` 
+          }
+        }
+      );    if(data.success){
+        toast.success(data.message)
+        getAllAppointments()
+    }else{
+        toast.error(data.message)
+    }
+  } catch (error) {
+
+            toast.error(error.message);
+
+  }
+}
     const value = {
         aToken,
         setAToken,
@@ -81,7 +105,8 @@ const getAllAppointments = async ()=>{
         changeAvailability,
         appointments,
         setAppointments,
-        getAllAppointments
+        getAllAppointments,
+        cancelAppointment
     };
 
     return (
