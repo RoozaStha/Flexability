@@ -4,26 +4,16 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const MyAppointments = () => {
-  const { backendUrl, token, getDoctorsData} = useContext(AppContext);
+  const { backendUrl, token, getDoctorsData } = useContext(AppContext);
   const [appointments, setAppointments] = useState([]);
 
   // Function to format slotDate
   const slotDateFormat = (slotDate) => {
     if (!slotDate) return "Invalid Date";
 
-    // Log the slotDate to understand its format
-    console.log("slotDate received:", slotDate);
-
-    // Try parsing the date if it's in "YYYY-MM-DD" format or adjust as needed
     const date = new Date(slotDate);
+    if (isNaN(date.getTime())) return "Invalid Date";
 
-    // Check if the date is valid
-    if (isNaN(date.getTime())) {
-      console.log("Invalid date format:", slotDate);
-      return "Invalid Date";
-    }
-
-    // Define months for formatting
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
   };
@@ -36,11 +26,8 @@ const MyAppointments = () => {
         },
       });
 
-      console.log("API Response:", data);
-
       if (data.success) {
         setAppointments(data.appointments.reverse());
-        console.log(data.appointments);
       }
     } catch (error) {
       console.error("Error fetching appointments:", error);
@@ -63,12 +50,36 @@ const MyAppointments = () => {
       if (data.success) {
         toast.success(data.message);
         getUserAppointments();
-        getDoctorsData()
+        getDoctorsData();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error(error.message);
+    }
+  };
+
+  const makePayment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        `${backendUrl}/api/user/make-payment`,
+        { appointmentId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (data.success) {
+        // Redirect to eSewa payment URL
+        window.location.href = data.paymentUrl;
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
       toast.error(error.message);
     }
   };
@@ -81,9 +92,7 @@ const MyAppointments = () => {
 
   return (
     <div>
-      <p className="pb-3 mt-12 font-medium text-zinc-700 border-b">
-        My Appointments
-      </p>
+      <p className="pb-3 mt-12 font-medium text-zinc-700 border-b">My Appointments</p>
       <div>
         {appointments.length === 0 ? (
           <p>No appointments found.</p>
@@ -105,17 +114,13 @@ const MyAppointments = () => {
               <div className="flex-1 text-sm text-zinc-600">
                 {item.docData && (
                   <>
-                    <p className="text-neutral-800 font-semibold">
-                      {item.docData.name}
-                    </p>
+                    <p className="text-neutral-800 font-semibold">{item.docData.name}</p>
                     <p>{item.docData.Speciality}</p>
                     <p className="text-zinc-700 font-medium mt-1">Address:</p>
                     <p className="text-xs">{item.docData.address?.line1}</p>
                     <p className="text-xs">{item.docData.address?.line2}</p>
                     <p className="text-xs mt-1">
-                      <span className="text-sm text-neutral-700 font-medium">
-                        Date & Time:
-                      </span>{" "}
+                      <span className="text-sm text-neutral-700 font-medium">Date & Time:</span>{" "}
                       {slotDateFormat(item.slotDate)} | {item.slotTime}
                     </p>
                   </>
@@ -123,11 +128,12 @@ const MyAppointments = () => {
               </div>
               <div className="flex flex-col gap-2 justify-end">
                 {!item.cancelled && (
-                  <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300">
+                  <button
+                    onClick={() => makePayment(item._id)} // Calling your makePayment function here
+                    className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300">
                     Pay Online
                   </button>
                 )}
-
                 {!item.cancelled && (
                   <button
                     onClick={() => cancelAppointment(item._id)}

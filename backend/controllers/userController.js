@@ -192,4 +192,64 @@ const cancelAppointment = async(req,res)=>{
     }
 }
 
-export { registerUser, loginUser, getProfile, updateProfile, bookAppointment,listAppointment ,cancelAppointment};
+// API to make payment of appointment using eSewa
+const makePayment = async (req, res) => {
+    const { appointmentId } = req.body;
+
+    // Retrieve appointment details
+    const appointmentData = await appointmentModel.findById(appointmentId);
+    if (!appointmentData) {
+        return res.status(404).json({ success: false, message: "Appointment not found" });
+    }
+
+    const { amount, userId } = appointmentData;
+
+    // Prepare eSewa payment data
+    const paymentData = {
+        amt: amount, // amount to be paid
+        psc: '0', // payment service charge, typically zero for eSewa
+        txAmt: amount, // transaction amount
+        tAmt: amount, // total amount
+        productId: appointmentId, // product ID to track the payment
+        // eSewa requires additional parameters
+        su: 'http://localhost:4000/api/user/payment-callback', // success URL
+        fu: 'http://localhost:4000/api/user/payment-callback', // failure URL
+    };
+
+    // Generate payment URL
+    const paymentUrl = `https://esewa.com.np/epay/main?amt=${paymentData.amt}&psc=${paymentData.psc}&txAmt=${paymentData.txAmt}&tAmt=${paymentData.tAmt}&pid=${paymentData.productId}&su=${paymentData.su}&fu=${paymentData.fu}`;
+
+    res.json({ success: true, paymentUrl });
+};
+
+// Callback endpoint for eSewa
+const paymentCallback = async (req, res) => {
+    const { txId, amt, refId } = req.body; // Get the relevant fields from the eSewa callback
+
+    // Verify payment
+    try {
+        const response = await axios.post('https://esewa.com.np/epay/transverify', {
+            amt,
+            txId,
+            refId,
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.data) {
+            // Payment successful, update appointment status
+            await appointmentModel.findByIdAndUpdate(refId, { paid: true });
+            res.json({ success: true, message: "Payment successful" });
+        } else {
+            res.status(400).json({ success: false, message: "Payment verification failed" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Payment verification error" });
+    }
+};
+
+
+export { registerUser, loginUser, getProfile, updateProfile, bookAppointment,listAppointment ,cancelAppointment,makePayment,paymentCallback};
