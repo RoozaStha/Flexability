@@ -1,26 +1,14 @@
+// Ensure this is in your doctorRouter file
 import express from 'express';
-import {
-    doctorList,
-    loginDoctor,
-    appointmentsDoctor,
-    cancelAppointment,
-    completeAppointment
-} from '../controllers/doctorController.js';
+import { doctorList,loginDoctor,appointmentsDoctor } from '../controllers/doctorController.js';
 import authDoctor from '../middlewares/authDoctor.js';
 
 const doctorRouter = express.Router();
 
-// Doctor routes
+// Ensure this route is defined
 doctorRouter.get('/list', doctorList);
-doctorRouter.post('/login', loginDoctor);
-doctorRouter.get('/appointments', authDoctor, appointmentsDoctor);
 
-doctorRouter.post('/appointmentsDoctor', (req, res) => {
-    res.send('Doctor Appointment Endpoint');
-});
+doctorRouter.post('/login',loginDoctor)
 
-// Appointment management routes
-doctorRouter.post('/appointments/cancel', authDoctor, cancelAppointment);
-doctorRouter.post('/appointments/complete', authDoctor, completeAppointment);
-
+doctorRouter.get('/appointments',authDoctor,appointmentsDoctor)
 export default doctorRouter;
