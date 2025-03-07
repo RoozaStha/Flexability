@@ -8,40 +8,45 @@ const TopDoctors = () => {
   
   // Check if doctors is defined and is an array
   if (!doctors || !Array.isArray(doctors)) {
-    return <p>No doctors available at the moment.</p>; // Handle the case when no doctors are found
+    return <p className="text-center text-gray-600 mt-10">No doctors available at the moment.</p>;
   }
 
   return (
-    <div className='flex flex-col items-center gap-4 my-16 text-gray-900 md:mx-10'>
-      <h1 className='text-3xl font-medium'>Top Doctors to Book</h1>
-      <p className='sm:w-1/3 text-center text-sm'>
-        Simply browse through our extensive list of trusted doctors.
-      </p>
-      <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-5 gap-y-6 px-3 sm:px-0'>
-        {doctors.slice(0, 10).map((item) => ( // Removed index from map
+    <div className="flex flex-col items-center gap-6 my-16 text-gray-900 md:mx-10">
+      {/* Section Title */}
+      <h1 className="text-3xl font-semibold">Popular Items</h1>
+      
+      {/* Doctors Grid */}
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-3 sm:px-0">
+        {doctors.slice(0, 10).map((doctor) => (
           <div 
-          onClick={() => {navigate(`/appointment/${item._id}`); scrollTo(0,0)}} 
-
-            key={item._id} // Use unique ID as the key
-            className='border border-blue-200 rounded-xl overflow-hidden cursor-pointer transform hover:-translate-y-2 transition-all duration-500'
+            key={doctor._id} 
+            className="doctor-card"
+            onClick={() => { navigate(`/appointment/${doctor._id}`); scrollTo(0, 0); }}
           >
-            <img className='bg-blue-50' src={item.image} alt={item.name} />
-            <div className='p-4'>
-              <div className='flex items-center gap-2 text-sm text-center text-green-500'>
-                <span className='w-2 h-2 bg-green-500 rounded-full'></span>
+            <img className="doctor-image" src={doctor.image} alt={doctor.name} />
+            <div className="doctor-info">
+              <div className="availability">
+                <span className="availability-dot"></span>
                 <p>Available</p>
               </div>
-              <p className='text-gray-900 text-lg font-medium'>{item.name}</p>
-              <p className='text-gray-600 text-sm'>{item.speciality}</p>
+              <p className="doctor-name">{doctor.name}</p>
+              <p className="doctor-speciality">{doctor.speciality}</p>
             </div>
           </div>
         ))}
       </div>
-      <button onClick={()=>{ navigate('/doctors'); scrollTo(0,0)}} className='mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'>
-        More
-      </button>
+
+      {/* View More Button */}
+      <button 
+  onClick={() => { navigate('/doctors'); scrollTo(0, 0); }} 
+  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+>
+  View More
+</button>
+
     </div>
   );
-}
+};
 
 export default TopDoctors;

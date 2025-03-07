@@ -12,32 +12,28 @@ const About = () => {
       <div className="mt-10 flex flex-col items-center md:flex-row gap-12">
         <img
           className="w-full max-w-sm rounded-lg shadow-lg transition-transform transform hover:scale-105"
-          src={assets.about_image}
+          src={assets.budo}
           alt="About Us"
         />
         <div className="flex flex-col justify-center gap-6 md:w-2/4 text-base text-gray-600">
           <p className="leading-relaxed">
             Welcome to{" "}
-            <span className="font-semibold text-blue-600">QuickDoctor</span>,
+            <span className="font-semibold text-blue-600">FlexAbility</span>,
             your trusted partner in managing your healthcare needs conveniently
-            and efficiently. At QuickDoctor, we understand the challenges
-            individuals face when it comes to scheduling doctor appointments and
-            managing their health records.
+            and efficiently. At Flex-ability, we believe in creating an inclusive 
+            and accessible shopping experience for specially-abled individuals. 
+            Our mission is to provide high-quality mobility aids and assistive
+            devices that enhance independence, comfort, and confidence in everyday life
           </p>
           <p className="leading-relaxed">
-            QuickDoctor is committed to excellence in healthcare technology. We
-            continuously strive to enhance our platform, integrating the latest
-            advancements to improve user experience and deliver superior
-            service. Whether you’re booking your first appointment or managing
-            ongoing care, QuickDoctor is here to support you every step of the
-            way.
+           
           </p>
           <b className="text-xl font-semibold text-gray-800">Our Vision</b>
           <p className="leading-relaxed">
-            Our vision at QuickDoctor is to create a seamless healthcare
-            experience for every user. We aim to bridge the gap between patients
-            and healthcare providers, making it easier for you to access the
-            care you need, when you need it.
+          We understand the challenges faced by individuals with disabilities, and we 
+          strive to bridge the gap by offering a wide range of carefully curated products, 
+          from wheelchairs and walking aids to smart assistive technology. Our platform is 
+          designed with accessibility in mind, ensuring a seamless shopping experience for all users
           </p>
         </div>
       </div>
@@ -49,18 +45,18 @@ const About = () => {
 
       <div className="flex flex-col md:flex-row justify-center gap-8 mt-10 mb-20">
         <div className="border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-blue-600 hover:text-white transition-all duration-500 cursor-pointer rounded-lg shadow-md">
-          <b className="text-lg text-gray-800">Efficiency</b>
-          <p>Streamlined appointment scheduling that fits into your busy lifestyle.</p>
+          <b className="text-lg text-gray-800">Empowerment</b>
+          <p>"Empowering you to make independent choices with ease. Our platform provides simple, straightforward navigation, enabling you to find what you need without barriers."</p>
         </div>
 
         <div className="border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-blue-600 hover:text-white transition-all duration-500 cursor-pointer rounded-lg shadow-md">
-          <b className="text-lg text-gray-800">Convenience</b>
-          <p>Access to a network of trusted healthcare professionals in your area.</p>
+          <b className="text-lg text-gray-800">Support</b>
+          <p>Dedicated support at every step of your journey. From product selection to after-purchase care, our team is here to assist you with any questions or concerns</p>
         </div>
 
         <div className="border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-blue-600 hover:text-white transition-all duration-500 cursor-pointer rounded-lg shadow-md">
-          <b className="text-lg text-gray-800">Personalization</b>
-          <p>Tailored recommendations and reminders to help you stay on top of your health.</p>
+          <b className="text-lg text-gray-800">Accessibility</b>
+          <p>"Designed with accessibility in mind. Whether you have mobility, vision, or hearing challenges, our website ensures a smooth shopping experience through accessible features and easy-to-use design."</p>
         </div>
       </div>
     </div>

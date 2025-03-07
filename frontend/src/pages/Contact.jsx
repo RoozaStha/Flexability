@@ -11,7 +11,7 @@ const Contact = () => {
       </div>
       <div className="flex flex-col md:flex-row items-center gap-12">
         <img
-          src={assets.contact_image}
+          src={assets.contact}
           alt="Contact Us"
           className="w-full max-w-sm rounded-lg shadow-lg"
         />
@@ -24,17 +24,12 @@ const Contact = () => {
             Tel: <span className="font-semibold">(+977) 1-555-0132</span> <br />
             Email:{" "}
             <a
-              href="mailto:quickdoctor@example.com"
+              href="mailto:flexability@example.com"
               className="text-blue-600 hover:underline"
             >
-              quickdoctor@example.com
+              flexability@example.com
             </a>
           </p>
-          <p className="text-xl font-semibold text-gray-800">Careers at QUICKDOCTOR</p>
-          <p>Learn more about our teams and job openings.</p>
-          <button className="mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 transition duration-300">
-            Explore Jobs
-          </button>
         </div>
       </div>
     </div>

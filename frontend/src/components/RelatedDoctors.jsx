@@ -23,9 +23,9 @@ const RelatedDoctors = ({ speciality, docInfo }) => {
 
   return (
     <div className='flex flex-col items-center gap-4 my-16 text-gray-900 md:mx-10'>
-      <h1 className='text-3xl font-medium'>Top Doctors to Book</h1>
+      <h1 className='text-3xl font-medium'>Top Items to BUY</h1>
       <p className='sm:w-1/3 text-center text-sm'>
-        Simply browse through our extensive list of trusted doctors.
+        Simply browse through our extensive list of items.
       </p>
       <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-5 gap-y-6 px-3 sm:px-0'>
         {relDoc.slice(0, 5).map(({ _id, image, name, speciality }) => (

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 
-const Doctors = () => {
+const AllCategory = () => {
   const { speciality } = useParams();
   const [filterDoc, setFilterDoc] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
@@ -32,7 +32,7 @@ const Doctors = () => {
 
   return (
     <div>
-      <p className='text-gray-600'>Browse through the doctors specialist.</p>
+      <p className='text-gray-600'>Browse through the special items.</p>
       <div className='flex flex-col sm:flex-row items-start gap-5 mt-5'>
         <button
           className={`py-1 px-3 border rounded text-sm transition-all sm:hidden ${showFilter ? 'bg-primary' : ''}`}
@@ -82,4 +82,4 @@ const Doctors = () => {
   );
 };
 
-export default Doctors;
+export default AllCategory;

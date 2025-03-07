@@ -37,9 +37,10 @@ const Navbar = () => {
       
       <ul className='hidden md:flex items-start gap-5 font-medium'>
         <MenuItem to="/" onClick={() => setShowMenu(false)}>HOME</MenuItem>
-        <MenuItem to="/doctors" onClick={() => setShowMenu(false)}>ALL DOCTORS</MenuItem>
+        <MenuItem to="/allcategory" onClick={() => setShowMenu(false)}>ALL CATEGORIES</MenuItem>
         <MenuItem to="/about" onClick={() => setShowMenu(false)}>ABOUT</MenuItem>
         <MenuItem to="/contact" onClick={() => setShowMenu(false)}>CONTACT</MenuItem>
+        <MenuItem to="/allcategory" onClick={() => setShowMenu(false)}>FUNDING</MenuItem>
       </ul>
 
       <div className='flex items-center gap-4 relative'>
