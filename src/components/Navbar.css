@@ -1,0 +1,75 @@
+/* Navbar.css */
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .navbar-logo {
+    width: 250px;
+    height: 100px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  
+  .navbar-menu {
+    display: flex;
+    align-items: start;
+    gap: 1.25rem;
+    font-weight: 500;
+  }
+  
+  .navbar-menu-item {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+  
+  .profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .dropdown-icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    transform: translateY(0.25rem);
+    background-color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    z-index: 20;
+    padding: 1rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 180px;
+  }
+  
+  .dropdown-menu p {
+    cursor: pointer;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+  
+  .dropdown-menu p:hover {
+    color: var(--primary-color);
+  }
+  
+  .create-account-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+  }
+  
